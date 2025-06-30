@@ -6,7 +6,7 @@
 
 # clone the repositories
 git clone https://github.com/quo/ithc-linux
-git clone https://github.com/linux-surface/iptsd
+# git clone https://github.com/linux-surface/iptsd
 
 # add the Linux Surface repository
 sudo dnf config-manager addrepo --from-repofile=https://pkg.surfacelinux.com/fedora/linux-surface.repo
@@ -34,17 +34,5 @@ cd iptsd
 meson build
 ninja -C build
 
-## TODO destructive commands ahead, create backups before running
-## TODO see if iptsd still needed, seems to be installed from a package now
-##      also touch and asus pen 2 seem to work fine
-
-# find hidraw device
-# hidrawN=$(sudo ./etc/iptsd-find-hidraw)
-
-# create daemon script
-# mkdir ~/.daemonscript
-# echo "sudo ./build/src/daemon/iptsd $hidrawN" > ~/.daemonscript/iptsdscript.sh
-
-# edit grub config
-# sudo sed -i "s/GRUB_CMDLINE_LINUX=.*/GRUB_CMDLINE_LINUX=\\\"rhgb intremap=nosid '~\/.daemonscript\/iptsdscript.sh' quiet\\\"/g" /etc/default/grub
-# sudo update-grub
+echo "Please calibrate the touchscreen for finger size with sudo iptsd-calibrate /dev/hidraw0"
+echo "and activate palm rejection in /etc/iptsd.conf"
