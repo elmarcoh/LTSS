@@ -5,7 +5,11 @@
 # work on your computer. Good luck, and enjoy
 
 # clone the repositories
-git clone https://github.com/quo/ithc-linux
+if [ ! -d ithc-linux ]; then
+	git clone https://github.com/quo/ithc-linux
+else
+	cd ithc-linux; git pull; cd ..
+fi
 # git clone https://github.com/linux-surface/iptsd
 
 # add the Linux Surface repository
@@ -15,11 +19,12 @@ sudo dnf config-manager addrepo --from-repofile=https://pkg.surfacelinux.com/fed
 sudo dnf install dkms meson build gcc-c++ sdl2-compat-devel.x86_64 -y
 
 # cd into ithc-linux and run make dkms-install
-cd ~/ithc/ithc-linux
+cd ithc-linux
 sudo make dkms-install
+cd ..
 
 # add ithc to modprobe
-if ! [ -f /etc/modules-load.d/ithc.conf]; then
+if [ ! -f /etc/modules-load.d/ithc.conf ]; then
 	echo "ithc" | sudo tee -a /etc/modules-load.d/ithc.conf
 fi
 
